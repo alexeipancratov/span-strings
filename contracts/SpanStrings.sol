@@ -17,17 +17,13 @@ library SpanStrings {
         return span(ptr, bytes(str).length);
     }
 
-    function getSlice(
-        span memory str,
-        uint256 start,
-        uint256 end
-    ) internal pure returns (span memory) {
+    function getSlice(span memory str, uint256 start, uint256 length) internal pure returns (span memory) {
         uint256 newPointer;
         uint256 oldPointer = str.ptr;
         assembly {
             newPointer := add(oldPointer, start)
         }
-        return span(newPointer, end - start + 1);
+        return span(newPointer, length);
     }
 
     function copy(span memory str) internal pure returns (span memory) {

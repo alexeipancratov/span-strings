@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "chai": "^4.3.4",
     "web3": "^1.5.0"
   }
 }
