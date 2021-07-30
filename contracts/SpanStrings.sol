@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.6;
 
-library strings {
+library SpanStrings {
     struct span {
         uint256 ptr;
         uint256 length;
