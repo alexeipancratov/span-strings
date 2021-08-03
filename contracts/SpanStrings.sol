@@ -93,9 +93,28 @@ library SpanStrings {
         return result;
     }
     
-    /// @notice Checks whether the two spans have length and pointers pointing to the same memory location
+    /// @notice Checks whether the two spans are pointing to two memory locations containing the same characters.
     function equals(span memory str1, span memory str2) internal pure returns(bool) {
-        return str1.length == str2.length && str1.ptr == str2.ptr;
+        uint256 str1Ptr = str1.ptr;
+        uint256 str2Ptr = str2.ptr;
+
+        for (uint256 i = 0; i < str1.length; i++) {
+            bytes1 str1Char;
+            bytes1 str2Char;
+            assembly {
+                str1Char := mload(str1Ptr)
+                str2Char := mload(str2Ptr)
+
+                str1Ptr := add(str1Ptr, 1)
+                str2Ptr := add(str2Ptr, 1)
+            }
+
+            if (str1Char != str2Char) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     function copyMemory(uint256 srcPtr, uint256 destPtr, uint256 length) private pure {

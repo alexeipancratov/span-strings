@@ -29,10 +29,10 @@ contract SpanStringsMock {
         return SpanStrings.isEmpty(span);
     }
 
-    function concat(SpanStrings.span memory span1, SpanStrings.span memory span2)
+    function concat(SpanStrings.span memory str1, SpanStrings.span memory str2)
         public pure returns (SpanStrings.span memory)
     {
-        return SpanStrings.concat(span1, span2);
+        return SpanStrings.concat(str1, str2);
     }
 
     function toSpanAndBackToString(string memory str)
@@ -42,5 +42,19 @@ contract SpanStringsMock {
     {
         SpanStrings.span memory span = SpanStrings.toSpan(str);
         return SpanStrings.toString(span);
+    }
+
+    function equalsTrue() public pure returns (bool) {
+        SpanStrings.span memory str1 = SpanStrings.toSpan("hello");
+        SpanStrings.span memory str2 = SpanStrings.toSpan("hello");
+        
+        return SpanStrings.equals(str1, str2);
+    }
+
+    function equalsFalse() public pure returns (bool) {
+        SpanStrings.span memory str1 = SpanStrings.toSpan("hello");
+        SpanStrings.span memory str2 = SpanStrings.toSpan("hellO");
+        
+        return SpanStrings.equals(str1, str2);
     }
 }

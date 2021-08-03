@@ -1,13 +1,13 @@
 const { assert } = require("chai");
-const SpanStringsMock = artifacts.require('SpanStringsMock');
+const SpanStringsMock = artifacts.require("SpanStringsMock");
 
 contract("SpanStringsMock", () => {
   let spanStringsInstance;
-  
+
   beforeEach(async () => {
     spanStringsInstance = await SpanStringsMock.deployed();
   });
-  
+
   describe("toSpan", () => {
     it("should return a span with correct length", async () => {
       const inputString = "abcdef";
@@ -26,7 +26,11 @@ contract("SpanStringsMock", () => {
       const startIndex = 2;
       const sliceLength = 5;
 
-      const result = await spanStringsInstance.getSlice(inputSpan, startIndex, sliceLength);
+      const result = await spanStringsInstance.getSlice(
+        inputSpan,
+        startIndex,
+        sliceLength
+      );
 
       assert.equal(result._length, sliceLength);
     });
@@ -36,7 +40,11 @@ contract("SpanStringsMock", () => {
       const startIndex = 1;
       const sliceLength = 0;
 
-      const result = await spanStringsInstance.getSlice(inputSpan, startIndex, sliceLength);
+      const result = await spanStringsInstance.getSlice(
+        inputSpan,
+        startIndex,
+        sliceLength
+      );
 
       assert.equal(result._length, sliceLength);
     });
@@ -93,9 +101,25 @@ contract("SpanStringsMock", () => {
     it("should return a correct string representation", async () => {
       const inputString = "abc";
 
-      const result = await spanStringsInstance.toSpanAndBackToString(inputString);
+      const result = await spanStringsInstance.toSpanAndBackToString(
+        inputString
+      );
 
       assert.equal(result, inputString);
+    });
+  });
+
+  describe("equals", () => {
+    it("should return True for strings containing the same characters", async () => {
+      const result = await spanStringsInstance.equalsTrue();
+
+      assert.isTrue(result);
+    });
+
+    it("should return False for strings containing at least one different character", async () => {
+      const result = await spanStringsInstance.equalsFalse();
+
+      assert.isFalse(result);
     });
   });
 });
