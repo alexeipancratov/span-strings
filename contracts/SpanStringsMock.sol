@@ -29,10 +29,13 @@ contract SpanStringsMock {
         return SpanStrings.isEmpty(span);
     }
 
-    function concat(SpanStrings.span memory str1, SpanStrings.span memory str2)
-        public pure returns (SpanStrings.span memory)
+    function concat(string memory str1, string memory str2)
+        public pure returns (string memory)
     {
-        return SpanStrings.concat(str1, str2);
+        SpanStrings.span memory span1 = toSpan(str1);
+        SpanStrings.span memory span2 = toSpan(str2);
+
+        return SpanStrings.toString(SpanStrings.concat(span1, span2));
     }
 
     function toSpanAndBackToString(string memory str)

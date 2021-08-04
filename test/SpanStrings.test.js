@@ -1,4 +1,5 @@
 const { assert } = require("chai");
+const truffleAssert = require("truffle-assertions");
 const SpanStringsMock = artifacts.require("SpanStringsMock");
 
 contract("SpanStringsMock", () => {
@@ -24,7 +25,7 @@ contract("SpanStringsMock", () => {
     it("should return slice with correct length", async () => {
       const inputSpan = await spanStringsInstance.toSpan("abcdef");
       const startIndex = 2;
-      const sliceLength = 5;
+      const sliceLength = 4;
 
       const result = await spanStringsInstance.getSlice(
         inputSpan,
@@ -47,6 +48,17 @@ contract("SpanStringsMock", () => {
       );
 
       assert.equal(result._length, sliceLength);
+    });
+
+    it("should throw an error given a length that goes out of bounds", async () => {
+      const inputSpan = await spanStringsInstance.toSpan("abcdef");
+      const startIndex = 5;
+      const sliceLength = 10;
+
+      await truffleAssert.reverts(
+        spanStringsInstance.getSlice(inputSpan, startIndex, sliceLength),
+        "Specified length goes out of bounds"
+      );
     });
   });
 
@@ -83,17 +95,22 @@ contract("SpanStringsMock", () => {
   });
 
   describe("concat", () => {
-    it("should return new span with combined length and new pointer", async () => {
+    it("should return new concatenated span, given two strings with identical lengths", async () => {
       const str1 = "abc";
       const str2 = "def";
-      const span1 = await spanStringsInstance.toSpan(str1);
-      const span2 = await spanStringsInstance.toSpan(str2);
 
-      const result = await spanStringsInstance.concat(span1, span2);
+      const result = await spanStringsInstance.concat(str1, str2);
 
-      assert.equal(result._length, str1.length + str2.length);
-      assert.notEqual(result.ptr, span1.ptr);
-      assert.notEqual(result.ptr, span2.ptr);
+      assert.equal(result, "abcdef");
+    });
+
+    it("should return new concatenated span, given two strings with different lengths", async () => {
+      const str1 = "cde";
+      const str2 = "wxyz";
+
+      const result = await spanStringsInstance.concat(str1, str2);
+
+      assert.equal(result, "cdewxyz");
     });
   });
 

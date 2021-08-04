@@ -25,11 +25,15 @@ library SpanStrings {
     }
 
     /// @notice Returns a slice of a span in a form of a new span
+    /// @dev This function is memory allocation free
     /// @param str Source span
     /// @param start Start index of the slice
     /// @param length Length of the slice
     /// @return New span representing the slice of the source span
     function getSlice(span memory str, uint256 start, uint256 length) internal pure returns (span memory) {
+        uint256 maxLength = str.length - start;
+        require(length <= maxLength, "Specified length goes out of bounds");
+
         uint256 newPointer;
         uint256 oldPointer = str.ptr;
         assembly {
@@ -39,6 +43,7 @@ library SpanStrings {
     }
 
     /// @notice Makes a copy of the supplied span
+    /// @dev This function is memory allocation free
     /// @param str Span to copy
     /// @return Copy of the source span
     function copy(span memory str) internal pure returns (span memory) {
@@ -63,14 +68,22 @@ library SpanStrings {
         returns (span memory)
     {
         string memory tempStr = new string(str1.length + str2.length);
+
+        // Copy first string
         uint256 srcPtr = str1.ptr;
         uint256 destPtr;
         assembly {
             destPtr := add(tempStr, 0x20)
         }
-
         copyMemory(srcPtr, destPtr, str1.length);
+
+        // Copy second string
         srcPtr = str2.ptr;
+        assembly {
+            destPtr := add(tempStr, 0x20)
+            let str1Len := mload(add(str1, 0x20))
+            destPtr := add(destPtr, str1Len)
+        }
         copyMemory(srcPtr, destPtr, str2.length);
 
         return toSpan(tempStr);
