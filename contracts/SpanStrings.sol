@@ -197,7 +197,7 @@ library SpanStrings {
         }
 
         return true;
-    } 
+    }
 
     function copyMemory(uint256 srcPtr, uint256 destPtr, uint256 length) private pure {
         for (uint256 i = 0; i < length; i++) {
