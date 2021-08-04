@@ -131,19 +131,13 @@ contract("SpanStringsMock", () => {
 
   describe("startsWith", () => {
     it("should return True if span starts with the provided text", async () => {
-      const span1 = await spanStringsInstance.toSpan("hello");
-      const span2 = await spanStringsInstance.toSpan("he");
-
-      const result = await spanStringsInstance.startsWith(span1, span2);
+      const result = await spanStringsInstance.startsWithTrue();
 
       assert.isTrue(result);
     });
 
     it("should return False if span doesn't start with the provided text", async () => {
-      const span1 = await spanStringsInstance.toSpan("hello");
-      const span2 = await spanStringsInstance.toSpan("he_");
-
-      const result = await spanStringsInstance.startsWith(span1, span2);
+      const result = await spanStringsInstance.startsWithFalse();
 
       assert.isFalse(result);
     });

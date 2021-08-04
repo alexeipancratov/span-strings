@@ -65,7 +65,17 @@ contract SpanStringsMock {
         return SpanStrings.equals(str1, str2);
     }
 
-    function startsWith(SpanStrings.span memory str1, SpanStrings.span memory str2) public pure returns (bool) {
+    function startsWithTrue() public pure returns (bool) {
+        SpanStrings.span memory str1 = SpanStrings.toSpan("hello");
+        SpanStrings.span memory str2 = SpanStrings.toSpan("he");
+        
+        return SpanStrings.startsWith(str1, str2);
+    }
+
+    function startsWithFalse() public pure returns (bool) {
+        SpanStrings.span memory str1 = SpanStrings.toSpan("hello");
+        SpanStrings.span memory str2 = SpanStrings.toSpan("he_");
+        
         return SpanStrings.startsWith(str1, str2);
     }
 }
