@@ -93,12 +93,46 @@ library SpanStrings {
         return result;
     }
     
-    /// @notice Checks whether the two spans are pointing to two memory locations containing the same characters.
+    /// @notice Checks whether the two spans are pointing to two memory locations containing the same characters
+    /// @param str1 First span
+    /// @param str2 Second span
+    /// @return True if spans are pointing to memory locations containing the same characters, false otherwise
     function equals(span memory str1, span memory str2) internal pure returns(bool) {
+        if (str1.length != str2.length) {
+            return false;
+        }
+
         uint256 str1Ptr = str1.ptr;
         uint256 str2Ptr = str2.ptr;
 
         for (uint256 i = 0; i < str1.length; i++) {
+            bytes1 str1Char;
+            bytes1 str2Char;
+            assembly {
+                str1Char := mload(str1Ptr)
+                str2Char := mload(str2Ptr)
+
+                str1Ptr := add(str1Ptr, 1)
+                str2Ptr := add(str2Ptr, 1)
+            }
+
+            if (str1Char != str2Char) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /// @notice Checks if `str1` starts with `str2`
+    /// @param str1 Span to search within
+    /// @param str2 Span pointing to characters to look for
+    /// @return True if the span starts with the provided text, false otherwise
+    function startsWith(span memory str1, span memory str2) internal pure returns(bool) {
+        uint256 str1Ptr = str1.ptr;
+        uint256 str2Ptr = str2.ptr;
+
+        for (uint256 i = 0; i < str2.length; i++) {
             bytes1 str1Char;
             bytes1 str2Char;
             assembly {

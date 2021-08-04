@@ -117,7 +117,33 @@ contract("SpanStringsMock", () => {
     });
 
     it("should return False for strings containing at least one different character", async () => {
-      const result = await spanStringsInstance.equalsFalse();
+      const result = await spanStringsInstance.equalsFalse_1();
+
+      assert.isFalse(result);
+    });
+
+    it("should return False when at least one of the strings has more characters than the other one", async () => {
+      const result = await spanStringsInstance.equalsFalse_2();
+
+      assert.isFalse(result);
+    });
+  });
+
+  describe("startsWith", () => {
+    it("should return True if span starts with the provided text", async () => {
+      const span1 = await spanStringsInstance.toSpan("hello");
+      const span2 = await spanStringsInstance.toSpan("he");
+
+      const result = await spanStringsInstance.startsWith(span1, span2);
+
+      assert.isTrue(result);
+    });
+
+    it("should return False if span doesn't start with the provided text", async () => {
+      const span1 = await spanStringsInstance.toSpan("hello");
+      const span2 = await spanStringsInstance.toSpan("he_");
+
+      const result = await spanStringsInstance.startsWith(span1, span2);
 
       assert.isFalse(result);
     });
