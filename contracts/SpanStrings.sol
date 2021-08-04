@@ -151,6 +151,41 @@ library SpanStrings {
         return true;
     }
 
+    /// @notice Checks if `str1` ends with `str2`
+    /// @param str1 Span to search within
+    /// @param str2 Span pointing to characters to look for
+    /// @return True if the span ends with the provided text, false otherwise
+    function endsWith(span memory str1, span memory str2) internal pure returns(bool) {
+        uint256 str1Ptr = str1.ptr;
+        uint256 str2Ptr = str2.ptr;
+
+        assembly {
+            let len1 := mload(add(str1, 0x20))
+            let len2 := mload(add(str2, 0x20))
+
+            str1Ptr := sub(add(str1Ptr, len1), 1)
+            str2Ptr := sub(add(str2Ptr, len2), 1)
+        }
+
+        for (uint256 i = 0; i < str2.length; i++) {
+            bytes1 str1Char;
+            bytes1 str2Char;
+            assembly {
+                str1Char := mload(str1Ptr)
+                str2Char := mload(str2Ptr)
+
+                str1Ptr := sub(str1Ptr, 1)
+                str2Ptr := sub(str2Ptr, 1)
+            }
+
+            if (str1Char != str2Char) {
+                return false;
+            }
+        }
+
+        return true;
+    } 
+
     function copyMemory(uint256 srcPtr, uint256 destPtr, uint256 length) private pure {
         for (uint256 i = 0; i < length; i++) {
             assembly {

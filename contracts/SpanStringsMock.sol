@@ -78,4 +78,18 @@ contract SpanStringsMock {
         
         return SpanStrings.startsWith(str1, str2);
     }
+
+    function endsWithTrue() public pure returns (bool) {
+        SpanStrings.span memory str1 = SpanStrings.toSpan("hello");
+        SpanStrings.span memory str2 = SpanStrings.toSpan("llo");
+        
+        return SpanStrings.endsWith(str1, str2);
+    }
+
+    function endsWithFalse() public pure returns (bool) {
+        SpanStrings.span memory str1 = SpanStrings.toSpan("hello");
+        SpanStrings.span memory str2 = SpanStrings.toSpan("_llo");
+        
+        return SpanStrings.endsWith(str1, str2);
+    }
 }

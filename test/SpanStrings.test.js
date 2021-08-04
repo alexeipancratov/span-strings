@@ -142,4 +142,18 @@ contract("SpanStringsMock", () => {
       assert.isFalse(result);
     });
   });
+
+  describe("endsWith", () => {
+    it("should return True if span ends with the provided text", async () => {
+      const result = await spanStringsInstance.endsWithTrue();
+
+      assert.isTrue(result);
+    });
+
+    it("should return False if span doesn't ends with the provided text", async () => {
+      const result = await spanStringsInstance.endsWithFalse();
+
+      assert.isFalse(result);
+    });
+  });
 });
