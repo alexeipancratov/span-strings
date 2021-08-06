@@ -252,6 +252,12 @@ library SpanStrings {
                 }
             }
         }
+
+        uint256 resultPtr = str.ptr;
+        uint256 resultLength = str.length;
+        str.length = 0;
+
+        return span(resultPtr, resultLength);
     }
 
     function copyMemory(uint256 srcPtr, uint256 destPtr, uint256 length) private pure {

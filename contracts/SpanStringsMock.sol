@@ -113,10 +113,17 @@ contract SpanStringsMock {
         return result.toString();
     }
 
-    function split_OriginalStr(string memory str, string memory separator) public pure returns(string memory) {
-        SpanStrings.span memory uri = str.toSpan();
-        uri.split(separator.toSpan());
+    function split_ReturnValue(string memory str, string memory separator) public pure returns(string memory) {
+        SpanStrings.span memory span = str.toSpan();
+        SpanStrings.span memory result = span.split(separator.toSpan());
         
-        return uri.toString();
+        return result.toString();
+    }
+
+    function split_InputValue(string memory str, string memory separator) public pure returns(string memory) {
+        SpanStrings.span memory span = str.toSpan();
+        span.split(separator.toSpan());
+        
+        return span.toString();
     }
 }

@@ -194,12 +194,32 @@ contract("SpanStringsMock", () => {
     });
 
     it("should modify the original span after split", async () => {
-      const modifiedInputStr = await spanStringsInstance.split_OriginalStr(
+      const modifiedInputStr = await spanStringsInstance.split_InputValue(
         "www.google.com",
         "."
       );
 
       assert.equal(modifiedInputStr, "google.com");
+    });
+
+    it("should return entire span if separator is not found", async () => {
+      const inputString = "www.google.com";
+
+      const result = await spanStringsInstance.split_ReturnValue(
+        inputString,
+        "com.ca"
+      );
+
+      assert.equal(result, inputString);
+    });
+
+    it("should make the input span empty if separator is not found", async () => {
+      const modifiedInput = await spanStringsInstance.split_InputValue(
+        "www.google.com",
+        "ca"
+      );
+
+      assert.equal(modifiedInput, "");
     });
   });
 });
