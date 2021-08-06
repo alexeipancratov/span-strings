@@ -5,6 +5,8 @@ pragma solidity ^0.8.6;
 import "./SpanStrings.sol";
 
 contract SpanStringsMock {
+    using SpanStrings for *;
+
     function toSpan(string memory str) public pure returns (SpanStrings.span memory)
     {
         return SpanStrings.toSpan(str);
@@ -94,5 +96,27 @@ contract SpanStringsMock {
         SpanStrings.span memory str2 = SpanStrings.toSpan("_llo");
         
         return SpanStrings.endsWith(str1, str2);
+    }
+
+    function split_Single_ReturnValue(string memory str, string memory separator) public pure returns(string memory) {
+        SpanStrings.span memory uri = str.toSpan();
+        SpanStrings.span memory result = uri.split(separator.toSpan());
+        
+        return result.toString();
+    }
+
+    function split_Two_ReturnValue(string memory str, string memory separator) public pure returns(string memory) {
+        SpanStrings.span memory uri = str.toSpan();
+        SpanStrings.span memory result = uri.split(separator.toSpan());
+        result = uri.split(".".toSpan());
+        
+        return result.toString();
+    }
+
+    function split_OriginalStr(string memory str, string memory separator) public pure returns(string memory) {
+        SpanStrings.span memory uri = str.toSpan();
+        uri.split(separator.toSpan());
+        
+        return uri.toString();
     }
 }

@@ -199,6 +199,61 @@ library SpanStrings {
         return true;
     }
 
+    /// @notice Splits the span string into two subspans based on the `separator`
+    /// @dev Modifies the `str` for gas efficiency
+    /// @param str Span to split
+    /// @param separator Span to use as a separator
+    /// @return the subspan after the separator
+    function split(span memory str, span memory separator) internal pure returns(span memory) {
+        uint256 strPtr = str.ptr;
+        uint256 sepPtr = separator.ptr;
+
+        for (uint256 i = 0; i < str.length; i++) {
+            bytes1 char1;
+            bytes1 char2;
+
+            assembly {
+                char1 := mload(add(strPtr, i))
+                char2 := mload(add(sepPtr, 0))
+            }
+
+            if (char1 == char2) {
+                bool allCharsAreEqual = true;
+                bytes1 nestedChar1;
+                bytes1 nestedChar2;
+
+                // out of bounds check
+                if (str.length - i < separator.length) {
+                    continue;
+                }
+
+                for (uint256 j = 0; j < separator.length; j++) {
+                    assembly {
+                        nestedChar1 := mload(add(add(strPtr, i), j))
+                        nestedChar2 := mload(add(sepPtr, j))
+                    }
+
+                    if (nestedChar1 != nestedChar2) {
+                        allCharsAreEqual = false;
+                    }
+                }
+
+                if (allCharsAreEqual) {
+                    uint256 returnPtr = str.ptr;
+                    uint256 returnLength = i;
+                    uint256 sepLength = separator.length;
+                    assembly {
+                        strPtr := add(add(strPtr, i), sepLength)
+                    }
+                    str.ptr = strPtr;
+                    str.length = str.length - i - separator.length;
+
+                    return span(returnPtr, returnLength);
+                }
+            }
+        }
+    }
+
     function copyMemory(uint256 srcPtr, uint256 destPtr, uint256 length) private pure {
         for (uint256 i = 0; i < length; i++) {
             assembly {

@@ -173,4 +173,33 @@ contract("SpanStringsMock", () => {
       assert.isFalse(result);
     });
   });
+
+  describe("split", () => {
+    it("should return correct subspan after single split", async () => {
+      const result = await spanStringsInstance.split_Single_ReturnValue(
+        "www.google.com",
+        "."
+      );
+
+      assert.equal(result, "www");
+    });
+
+    it("should return correct subspan after two splits", async () => {
+      const result = await spanStringsInstance.split_Two_ReturnValue(
+        "www.google.com",
+        "."
+      );
+
+      assert.equal(result, "google");
+    });
+
+    it("should modify the original span after split", async () => {
+      const modifiedInputStr = await spanStringsInstance.split_OriginalStr(
+        "www.google.com",
+        "."
+      );
+
+      assert.equal(modifiedInputStr, "google.com");
+    });
+  });
 });
