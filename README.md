@@ -6,7 +6,8 @@ The *SpanStrings Library* is entirely based on the concept of a **span**. A span
 
 ## Implementation Details
 The structure of a span can be visualized in the following way:
-IMG
+
+![image](https://user-images.githubusercontent.com/3188163/128618633-dfce60fc-147f-49d9-9746-99b540e13989.png)
 
 1. **toSpan** - returns the span representation of a string. This is done by extracting the string pointer and its length and constructing a span based on them.
 2. **toString** - converts the span to string by allocating a new string object and by copying all characters to it to which the span has pointed before.
