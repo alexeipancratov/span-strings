@@ -31,6 +31,6 @@ It may seem that exposing a string pointer may pose a security risk, however:
 ## Test coverage
 The library is completely tested with unit tests. The coverage is 100% as show below
 
-![image](https://user-images.githubusercontent.com/3188163/128618696-3e2c8c35-7435-417c-a151-24c7da69008d.png)
+![image](https://user-images.githubusercontent.com/3188163/128653580-3b50e593-ff8c-4c97-9877-aacde615bb38.png)
 
 ## Benchmarking/Gas Profiling Information
