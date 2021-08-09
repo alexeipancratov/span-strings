@@ -153,8 +153,14 @@ contract("SpanStringsMock", () => {
       assert.isTrue(result);
     });
 
-    it("should return False if span doesn't start with the provided text", async () => {
-      const result = await spanStringsInstance.startsWithFalse();
+    it("should return False if span doesn't start with the provided text and provided text is shorter", async () => {
+      const result = await spanStringsInstance.startsWithFalse_ShorterString();
+
+      assert.isFalse(result);
+    });
+
+    it("should return False if span doesn't start with the provided text and provided text is longer", async () => {
+      const result = await spanStringsInstance.startsWithFalse_LongerString();
 
       assert.isFalse(result);
     });
@@ -167,8 +173,14 @@ contract("SpanStringsMock", () => {
       assert.isTrue(result);
     });
 
-    it("should return False if span doesn't ends with the provided text", async () => {
-      const result = await spanStringsInstance.endsWithFalse();
+    it("should return False if span doesn't end with the provided text which is shorter", async () => {
+      const result = await spanStringsInstance.endsWithFalse_ShorterString();
+
+      assert.isFalse(result);
+    });
+
+    it("should return False if span doesn't end with the provided text which is longer", async () => {
+      const result = await spanStringsInstance.endsWithFalse_LongerString();
 
       assert.isFalse(result);
     });

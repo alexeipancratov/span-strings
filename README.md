@@ -26,9 +26,11 @@ The structure of a span can be visualized in the following way:
 ## Security Considerations
 It may seem that exposing a string pointer may pose a security risk, however:
    * the library manipulates memory pointers (offsets) which are valid for the duration of current call only;
-   * out of bound checks are implemented where applicable.
+   * out of bound checks are implemented where applicable to prevent modification of non-related data.
 
 ## Test coverage
 The library is completely tested with unit tests. The coverage is 100% as show below
 
 ![image](https://user-images.githubusercontent.com/3188163/128618696-3e2c8c35-7435-417c-a151-24c7da69008d.png)
+
+## Benchmarking/Gas Profiling Information

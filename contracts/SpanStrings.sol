@@ -142,6 +142,10 @@ library SpanStrings {
     /// @param str2 Span pointing to characters to look for
     /// @return True if the span starts with the provided text, false otherwise
     function startsWith(span memory str1, span memory str2) internal pure returns(bool) {
+        if (str1.length < str2.length) {
+            return false;
+        }
+
         uint256 str1Ptr = str1.ptr;
         uint256 str2Ptr = str2.ptr;
 
@@ -169,6 +173,10 @@ library SpanStrings {
     /// @param str2 Span pointing to characters to look for
     /// @return True if the span ends with the provided text, false otherwise
     function endsWith(span memory str1, span memory str2) internal pure returns(bool) {
+        if (str1.length < str2.length) {
+            return false;
+        }
+
         uint256 str1Ptr = str1.ptr;
         uint256 str2Ptr = str2.ptr;
 

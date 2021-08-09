@@ -77,9 +77,16 @@ contract SpanStringsMock {
         return SpanStrings.startsWith(str1, str2);
     }
 
-    function startsWithFalse() public pure returns (bool) {
+    function startsWithFalse_ShorterString() public pure returns (bool) {
         SpanStrings.span memory str1 = SpanStrings.toSpan("hello");
         SpanStrings.span memory str2 = SpanStrings.toSpan("he_");
+        
+        return SpanStrings.startsWith(str1, str2);
+    }
+
+    function startsWithFalse_LongerString() public pure returns (bool) {
+        SpanStrings.span memory str1 = SpanStrings.toSpan("hello");
+        SpanStrings.span memory str2 = SpanStrings.toSpan("helloooo");
         
         return SpanStrings.startsWith(str1, str2);
     }
@@ -91,9 +98,16 @@ contract SpanStringsMock {
         return SpanStrings.endsWith(str1, str2);
     }
 
-    function endsWithFalse() public pure returns (bool) {
+    function endsWithFalse_ShorterString() public pure returns (bool) {
         SpanStrings.span memory str1 = SpanStrings.toSpan("hello");
         SpanStrings.span memory str2 = SpanStrings.toSpan("_llo");
+        
+        return SpanStrings.endsWith(str1, str2);
+    }
+
+    function endsWithFalse_LongerString() public pure returns (bool) {
+        SpanStrings.span memory str1 = SpanStrings.toSpan("hello");
+        SpanStrings.span memory str2 = SpanStrings.toSpan("_llooooo");
         
         return SpanStrings.endsWith(str1, str2);
     }
