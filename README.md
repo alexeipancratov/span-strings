@@ -128,6 +128,18 @@ str1Span = str1Span.getSlice(0, 6);
 str1Span = str1Span.getSlice(0, 4);
 str1Span = str1Span.getSlice(0, 2);
 ```
+and in the case of smart conctract which doesn't use the library
+```
+str1Text = getSubstring(str1Text, 0, 2);
+```
+as opposed to
+```
+str1Text = getSubstring(str1Text, 0, 10);
+str1Text = getSubstring(str1Text, 0, 8);
+str1Text = getSubstring(str1Text, 0, 6);
+str1Text = getSubstring(str1Text, 0, 4);
+str1Text = getSubstring(str1Text, 0, 2);
+```
 
 Operation | Efficient (using library) | Non-efficient
 ------------ | ------------ | -------------
