@@ -64,7 +64,7 @@ contract StringsClientEfficient {
         if (!result.isEmpty() && result.equals(lookupPhrase)) {
             return result.toString();
         } else {
-            return result.toString(); //"You didn't guess the logic of this function";
+            return "You didn't guess the logic of this function";
         }
     }
 }
@@ -91,7 +91,7 @@ contract StringsClientNonEfficient {
         if (bytes(result).length != 0 && areEqual(result, lookupPhrase)) {
             return result;
         } else {
-            return result; //"You didn't guess the logic of this function";
+            return "You didn't guess the logic of this function";
         }
     }
     
@@ -131,7 +131,7 @@ str1Span = str1Span.getSlice(0, 2);
 
 Operation | Efficient (using library) | Non-efficient
 ------------ | ------------ | -------------
-one split | 25936 gas | 25715 gas
-five splits | 26809 gas | 34582 gas
+one split | 25741 gas | 25599 gas
+five splits | 27700 gas | 41399 gas
 
-As it can be seen from this table, with one split the version which doesn't use SpanStrings library is actually a little bit more efficient. However, with larger number of splits made inside the function, the advantages of using spans instead of strings directly become more apparent.
+As it can be seen from this table, with one split the version which doesn't use SpanStrings library is actually slightly more efficient. However, with larger number of splits made inside the function, the advantages of using spans instead of strings directly become more apparent.
