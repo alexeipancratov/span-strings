@@ -116,7 +116,19 @@ contract StringsClientNonEfficient {
 }
 ```
 
-The comparison results of running these two functions are shown below. The two test cases differ only in number of times split of the first string is made.
+The comparison results of running these two functions are shown below. The two test cases differ only in number of times split of the first string is made. For example:
+```
+str1Span = str1Span.getSlice(0, 2);
+```
+as opposed to
+```
+str1Span = str1Span.getSlice(0, 10);
+str1Span = str1Span.getSlice(0, 8);
+str1Span = str1Span.getSlice(0, 6);
+str1Span = str1Span.getSlice(0, 4);
+str1Span = str1Span.getSlice(0, 2);
+```
+
 Operation | Efficient (using library) | Non-efficient
 ------------ | ------------ | -------------
 one split | 25936 gas | 25715 gas
