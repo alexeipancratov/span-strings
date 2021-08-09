@@ -2,7 +2,7 @@
 The *SpanStrings Library* provides convenient functions for performing operations with strings which are missing in the standard Solidity API. These operations are implemented in a gas-efficient way using the abstraction called span which can be easily converted from/to a string.
 
 ## High-level design
-The *SpanStrings Library* is entirely based on the concept of a **span**. A span consists of a pointer to a memory location and length. This design, which is used in many other programming langugages as well, provides the possibility of very efficient strings manipulation in terms of gas consumption. This is because most of the operations can be implemented by manipulating the target where the pointer points to and the length property of the span.
+The *SpanStrings Library* is entirely based on the concept of a **span**. A span consists of a pointer to a memory location (offset) and length. This design, which is used in many other programming langugages as well, provides the possibility of very efficient strings manipulation in terms of gas consumption. This is because most of the operations can be implemented by manipulating the target where the pointer points to and the length property of the span.
 
 ## Implementation Details
 The structure of a span can be visualized in the following way:
