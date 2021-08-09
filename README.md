@@ -34,7 +34,7 @@ The library is completely tested with unit tests. The coverage is 100% as show b
 ![image](https://user-images.githubusercontent.com/3188163/128653580-3b50e593-ff8c-4c97-9877-aacde615bb38.png)
 
 ## Benchmarking/Gas Profiling Information
-The best way to assess the performance of this library is to compare the gas consumption of a smart contract which uses this library with the one that doesn't (and uses functions which operate with strings directly) in a real-world scenario. These two smart contracts are shown below:
+The best way to assess the performance of this library is to compare the gas consumption of a smart contract which uses this library with the one that doesn't (and uses functions which operate with strings directly) in a real-world scenario. These two smart contracts are shown below and the target benchmarking function will be `getSlice`.
 
 ```
 // SPDX-License-Identifier: MIT
