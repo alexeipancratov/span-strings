@@ -147,3 +147,6 @@ one split | 25741 gas | 25599 gas
 five splits | 27700 gas | 41399 gas
 
 As it can be seen from this table, with one split the version which doesn't use SpanStrings library is actually slightly more efficient. However, with larger number of splits made inside the function, the advantages of using spans instead of strings directly become more apparent.
+
+## Future improvements/considerations
+In the current library implementation the advantages of using spans over strings are most noticeable in functions like `getSlice` and `split`. Using this solid base implementation other efficient and useful functions can be implemeted.
