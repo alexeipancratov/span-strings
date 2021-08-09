@@ -134,4 +134,4 @@ Operation | Efficient (using library) | Non-efficient
 one split | 25936 gas | 25715 gas
 five splits | 26809 gas | 34582 gas
 
-As it can be seen from this table, with one split the version which doesn't use SpanStrings library is actually a little bit more efficient. However, with larger number of splits made inside the function, the advantages of using spans instead of strings directly become obvious.
+As it can be seen from this table, with one split the version which doesn't use SpanStrings library is actually a little bit more efficient. However, with larger number of splits made inside the function, the advantages of using spans instead of strings directly become more apparent.
